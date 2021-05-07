@@ -1,3 +1,4 @@
 # Corona-Map
  Map showig current Covid stats of India
-tinyurl.com/coronamap21
+
+link : tinyurl.com/coronamap21
