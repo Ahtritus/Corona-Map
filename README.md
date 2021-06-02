@@ -1,4 +1,4 @@
 # Corona-Map
  Map showig current Covid stats of India
 
-link : tinyurl.com/coronamap21
+link : https://sutirtha-covid19-tracker.netlify.app/
