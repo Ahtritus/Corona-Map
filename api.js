@@ -219,19 +219,16 @@ async function getData() {
   var resource = await fetchResource.json();
 
   var resourceLength = Object.keys(resource.State).length;
-  //console.log(n);
-  //console.log(res2);
-  /*
-  for (var i = 0; i < resourceLength; i++) {
-    resource.Latitude[i] += "°N";
-    resource.Longitude[i] += "°E";
-  }
-  */
+  
   var statewise = APIData.statewise;
-
+  
   var data = [];
-  for (var i = 0; i < statewise.length - 1; i++) {
+  for (var i = 0; i < statewise.length ; i++) {
+    if(statewise[i].state=="State Unassigned")
+      continue;
+    
     for (var j = 0; j < resourceLength; j++) {
+      
       if (statewise[i].state == resource.State[j] || (i == 0 && j == 0)) {
         data[i] = new covData(
           statewise[i].statecode,
@@ -248,17 +245,25 @@ async function getData() {
     }
   }
 
+  var filtered_data = data.filter(function (el) {
+    return el != null;
+  });
+
   //console.log(data);
   //getPopupContent(data, statewise.length, resourceLength);
-  return data;
+  return filtered_data;
 }
 
 async function getPopupContent() {
   var data = await getData();
   console.log(data);
-  for (var i = 0; i < 37; i++) {
-    for (var j = 0; j < 37; j++) {
-      if (i != 0) {
+  
+
+  for (var i = 0; i < data.length; i++) {
+    //for (var j = 0; j < 37; j++) {
+      
+        //console.log(data[i].state);
+        
         var popupContent =
           "<b>State: </b>" +
           data[i].state +
@@ -282,8 +287,8 @@ async function getPopupContent() {
         })
           .addTo(mymap)
           .bindPopup(popupContent);
-      }
-    }
+      //}
+    
   }
 }
 
